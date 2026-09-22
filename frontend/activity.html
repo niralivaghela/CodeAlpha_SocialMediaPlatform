@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Activity ✦ Vibely</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <script src="js/theme.js"></script>
+</head>
+<body>
+
+  <!-- Sticky Top Navigation Bar -->
+  <header class="top-navbar">
+    <div class="nav-container">
+      <a href="feed.html" class="brand-logo">
+        <span>VIBELY</span>
+        <span class="brand-sparkle">✦</span>
+      </a>
+
+      <ul class="nav-center-menu">
+        <li><a href="feed.html" class="top-nav-link">Home</a></li>
+        <li><a href="explore.html" class="top-nav-link">Discover</a></li>
+        <li><a href="feed.html?filter=following" class="top-nav-link">Following</a></li>
+        <li><a href="activity.html" class="top-nav-link active">Activity</a></li>
+      </ul>
+
+      <div class="nav-search-box">
+        <svg class="nav-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" class="nav-search-input" placeholder="Search people, posts & topics..." onclick="window.location.href='explore.html'">
+      </div>
+
+      <div class="nav-actions">
+        <a href="feed.html" class="btn btn-coral btn-sm">
+          ＋ Create
+        </a>
+
+        <a href="messages.html" class="btn-icon nav-action-btn" title="Messages">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+          <span class="nav-badge-pill" id="nav-msg-badge" style="display: none;"></span>
+        </a>
+
+        <a href="notifications.html" class="btn-icon nav-action-btn" title="Notifications">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+          </svg>
+          <span class="nav-badge-pill" id="nav-notif-badge" style="display: none;"></span>
+        </a>
+
+        <!-- User Profile Dropdown -->
+        <div class="dropdown">
+          <div class="avatar avatar-sm nav-avatar-placeholder" id="nav-avatar-trigger" style="cursor: pointer;" onclick="toggleProfileDropdown()">
+            U
+          </div>
+          <div class="dropdown-menu" id="nav-profile-dropdown" style="width: 220px; right: 0;">
+            <a href="profile.html" class="dropdown-item">👤 Profile</a>
+            <a href="feed.html?filter=bookmarks" class="dropdown-item">🔖 Saved Posts</a>
+            <a href="activity.html" class="dropdown-item">📊 Your Activity</a>
+            <a href="settings.html" class="dropdown-item">⚙️ Settings</a>
+            <div style="padding: 0.5rem 0.85rem; border-top: 1px solid var(--border-subtle); margin-top: 0.35rem;">
+              <select class="form-control text-xs theme-select-input" onchange="VibelyTheme.set(this.value)">
+                <option value="light">☀ Light Theme</option>
+                <option value="dark">🌙 Dark Theme</option>
+                <option value="system">🖥 System Theme</option>
+              </select>
+            </div>
+            <button class="dropdown-item text-danger" onclick="handleLogout()" style="border-top: 1px solid var(--border-subtle); margin-top: 0.35rem;">🚪 Sign Out</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Activity Page Container -->
+  <main class="page-container" style="max-width: 1240px; width: min(1240px, calc(100% - 48px)); margin: 2.25rem auto; padding: 0;" id="activity-content-container">
+    <div style="margin-bottom: 2rem;">
+      <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <h1 style="font-size: 2rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 0.35rem;">
+            Your Journey & Activity ✦
+          </h1>
+          <p class="text-secondary text-sm">Real-time database statistics and chronological timeline of your presence on Vibely.</p>
+        </div>
+        <a href="profile.html" class="btn btn-secondary btn-sm">View Public Profile</a>
+      </div>
+    </div>
+
+    <!-- 100% Real Stats Grid -->
+    <section>
+      <h2 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 1rem; color: var(--text-main);">
+        Lifetime Impact
+      </h2>
+      <div class="activity-stats-grid" id="activity-metrics-grid">
+        <div class="stat-tile skeleton" style="height: 100px;"></div>
+        <div class="stat-tile skeleton" style="height: 100px;"></div>
+        <div class="stat-tile skeleton" style="height: 100px;"></div>
+        <div class="stat-tile skeleton" style="height: 100px;"></div>
+      </div>
+    </section>
+
+    <!-- Chronological Action Log Timeline -->
+    <section style="margin-top: 2.5rem;">
+      <h2 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 1rem; color: var(--text-main);">
+        Recent Interactions
+      </h2>
+      <div class="card" style="padding: 1.5rem 1.75rem;">
+        <div id="activity-timeline-list">
+          <div class="text-muted text-center" style="padding: 1.5rem;">Loading your activity log...</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Mobile Bottom Navigation -->
+  <nav class="mobile-bottom-bar">
+    <div class="mobile-bottom-inner">
+      <a href="feed.html" class="mobile-bottom-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+        <span>Home</span>
+      </a>
+      <a href="explore.html" class="mobile-bottom-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <span>Discover</span>
+      </a>
+      <a href="messages.html" class="mobile-bottom-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        <span>Messages</span>
+      </a>
+      <a href="notifications.html" class="mobile-bottom-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path></svg>
+        <span>Alerts</span>
+      </a>
+      <a href="profile.html" class="mobile-bottom-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        <span>Profile</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/activity.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      await initNavigation(true);
+      initActivityPage();
+    });
+  </script>
+</body>
+</html>

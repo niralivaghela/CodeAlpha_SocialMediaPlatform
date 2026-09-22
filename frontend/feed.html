@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home ✦ Vibely</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <script src="js/theme.js"></script>
+</head>
+<body>
+
+  <!-- Sticky Top Navigation Bar -->
+  <header class="top-navbar">
+    <div class="nav-container">
+      <a href="feed.html" class="brand-logo">
+        <span>VIBELY</span>
+        <span class="brand-sparkle">✦</span>
+      </a>
+
+      <ul class="nav-center-menu">
+        <li><a href="feed.html" class="top-nav-link active">Home</a></li>
+        <li><a href="explore.html" class="top-nav-link">Discover</a></li>
+        <li><a href="feed.html?filter=following" class="top-nav-link" id="nav-following-link">Following</a></li>
+        <li><a href="activity.html" class="top-nav-link">Activity</a></li>
+      </ul>
+
+      <div class="nav-search-box">
+        <svg class="nav-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" class="nav-search-input" placeholder="Search people, posts & topics...">
+      </div>
+
+      <div class="nav-actions">
+        <button class="btn btn-coral btn-sm" onclick="focusComposer()">
+          ＋ Create
+        </button>
+
+        <a href="messages.html" class="btn-icon nav-action-btn" title="Messages">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+          <span class="nav-badge-pill" id="nav-msg-badge" style="display: none;"></span>
+        </a>
+
+        <a href="notifications.html" class="btn-icon nav-action-btn" title="Notifications">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+          </svg>
+          <span class="nav-badge-pill" id="nav-notif-badge" style="display: none;"></span>
+        </a>
+
+        <!-- User Profile Dropdown -->
+        <div class="dropdown">
+          <div class="avatar avatar-sm nav-avatar-placeholder" id="nav-avatar-trigger" style="cursor: pointer;" onclick="toggleProfileDropdown()">
+            U
+          </div>
+          <div class="dropdown-menu" id="nav-profile-dropdown" style="width: 220px; right: 0;">
+            <a href="profile.html" class="dropdown-item">👤 Profile</a>
+            <a href="feed.html?filter=bookmarks" class="dropdown-item">🔖 Saved Posts</a>
+            <a href="activity.html" class="dropdown-item">📊 Your Activity</a>
+            <a href="settings.html" class="dropdown-item">⚙️ Settings</a>
+            <div style="padding: 0.5rem 0.85rem; border-top: 1px solid var(--border-subtle); margin-top: 0.35rem;">
+              <select class="form-control text-xs theme-select-input" onchange="VibelyTheme.set(this.value)">
+                <option value="light">☀ Light Theme</option>
+                <option value="dark">🌙 Dark Theme</option>
+                <option value="system">🖥 System Theme</option>
+              </select>
+            </div>
+            <button class="dropdown-item text-danger" onclick="handleLogout()" style="border-top: 1px solid var(--border-subtle); margin-top: 0.35rem;">🚪 Sign Out</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Editorial Main Layout -->
+  <div class="editorial-layout">
+
+    <!-- Left Main Feed Column -->
+    <main>
+      <!-- Personalized Greeting Header -->
+      <div style="margin-bottom: 1.75rem;">
+        <h2 id="user-dynamic-greeting" style="font-size: 1.85rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 0.25rem;">
+          Good morning, Friend ✨
+        </h2>
+        <p class="text-secondary text-sm">Here’s what’s happening around your world.</p>
+      </div>
+
+      <!-- Horizontal Moments Strip -->
+      <section class="moments-strip-container">
+        <div class="moments-header">
+          <h3><span>⚡</span> Moments</h3>
+          <span class="text-muted text-xs font-bold" style="text-transform: uppercase; letter-spacing: 0.05em;">Expires in 24h</span>
+        </div>
+        <div class="moments-scroll" id="moments-scroll-container">
+          <!-- Populated by stories.js -->
+        </div>
+      </section>
+
+      <!-- Feed Filter Tabs -->
+      <div style="display: flex; gap: 0.5rem; margin-bottom: 1.75rem; flex-wrap: wrap;">
+        <button class="btn btn-secondary btn-sm feed-filter-tab active" data-filter="for_you">For You</button>
+        <button class="btn btn-secondary btn-sm feed-filter-tab" data-filter="following">Following</button>
+        <button class="btn btn-secondary btn-sm feed-filter-tab" data-filter="latest">Latest</button>
+        <button class="btn btn-secondary btn-sm feed-filter-tab" data-filter="popular">Popular</button>
+        <button class="btn btn-secondary btn-sm feed-filter-tab" data-filter="media">Photos</button>
+      </div>
+
+      <!-- Floating Creative Post Composer -->
+      <section class="composer-card" id="composer-card">
+        <div class="composer-top-row">
+          <div class="avatar avatar-md nav-avatar-placeholder" id="composer-user-avatar">U</div>
+          <div style="flex: 1;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+              <div style="font-weight: 700; font-size: 0.95rem; color: var(--text-main);">Create something</div>
+              <button type="button" class="btn btn-ghost btn-xs text-muted" onclick="openDraftsModal()" title="View saved drafts">
+                📝 Drafts (<span id="drafts-count-badge">0</span>)
+              </button>
+            </div>
+            <textarea id="composer-text" class="composer-input" placeholder="What's on your mind? Type #hashtags to connect ideas, @username to mention..."></textarea>
+            
+            <!-- Context Badges (Location & Feeling) -->
+            <div id="composer-context-tags" style="display: flex; gap: 0.5rem; margin-top: 0.5rem; flex-wrap: wrap;">
+              <span id="composer-location-badge" class="badge-pill" style="display: none; background: var(--bg-surface-secondary); color: var(--text-main); cursor: pointer;" onclick="clearComposerLocation()">
+                📍 <span id="composer-location-text"></span> &times;
+              </span>
+              <span id="composer-feeling-badge" class="badge-pill" style="display: none; background: var(--bg-surface-secondary); color: var(--text-main); cursor: pointer;" onclick="clearComposerFeeling()">
+                ✨ <span id="composer-feeling-text"></span> &times;
+              </span>
+            </div>
+
+            <!-- Drag & Drop Media Preview -->
+            <div id="composer-media-preview" class="composer-media-preview">
+              <img id="composer-preview-img" src="" alt="Attached media">
+              <button id="composer-media-remove" class="composer-remove-media" title="Remove">&times;</button>
+            </div>
+
+            <!-- Poll Builder Accordion -->
+            <div id="composer-poll-box" style="display: none; margin-top: 1rem; padding: 1.25rem; background: var(--bg-surface-secondary); border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+              <div class="form-group" style="margin-bottom: 0.75rem;">
+                <label class="form-label text-xs">Poll Question</label>
+                <input type="text" id="poll-question-input" class="form-control" placeholder="Ask the community...">
+              </div>
+              <div id="poll-options-container">
+                <div class="form-group poll-option-row-input" style="margin-bottom: 0.5rem;">
+                  <input type="text" class="form-control poll-option-input" placeholder="Option 1">
+                </div>
+                <div class="form-group poll-option-row-input" style="margin-bottom: 0.5rem;">
+                  <input type="text" class="form-control poll-option-input" placeholder="Option 2">
+                </div>
+              </div>
+              <button type="button" id="poll-add-option-btn" class="btn btn-ghost btn-sm" style="color: var(--primary);">+ Add Option</button>
+            </div>
+
+            <!-- Context Inputs (Location / Feeling Dialog) -->
+            <div id="composer-extras-drawer" style="display: none; margin-top: 0.85rem; padding: 0.85rem; background: var(--bg-surface-secondary); border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+                <div>
+                  <label class="form-label text-xs">📍 Add Location</label>
+                  <input type="text" id="composer-location-input" class="form-control text-xs" placeholder="e.g. Kyoto, Japan">
+                </div>
+                <div>
+                  <label class="form-label text-xs">✨ Feeling / Vibe</label>
+                  <input type="text" id="composer-feeling-input" class="form-control text-xs" placeholder="e.g. Inspired, Creative">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="composer-actions-row">
+          <input type="file" id="composer-media-input" accept="image/png, image/jpeg, image/webp, image/gif" style="display: none;">
+          
+          <div class="composer-tools" style="flex-wrap: wrap;">
+            <button type="button" class="composer-tool-btn" onclick="document.getElementById('composer-media-input').click()">
+              📷 Photo
+            </button>
+            <button type="button" class="composer-tool-btn" id="composer-poll-toggle" onclick="toggleComposerPoll()">
+              📊 Poll
+            </button>
+            <button type="button" class="composer-tool-btn" onclick="toggleComposerExtras()">
+              📍 Vibe/Place
+            </button>
+            <button type="button" class="composer-tool-btn" onclick="insertComposerTag('#vibely')">
+              # Topic
+            </button>
+            <button type="button" class="composer-tool-btn" onclick="openCreateMomentModal()">
+              ⚡ Moment
+            </button>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 0.65rem; flex-wrap: wrap;">
+            <select id="composer-visibility-select" class="form-control text-xs" style="width: auto; padding: 0.35rem 0.65rem;">
+              <option value="public">🌐 Public</option>
+              <option value="followers">👥 Followers</option>
+            </select>
+            <button type="button" class="btn btn-ghost btn-xs text-muted" onclick="saveCurrentDraft()" title="Save Draft">
+              💾 Save
+            </button>
+            <span id="composer-char-count" class="text-xs text-muted font-bold">0/500</span>
+            <button id="composer-submit-btn" class="btn btn-coral btn-sm" style="padding: 0.55rem 1.45rem;">
+              Publish
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Post Feed Stream -->
+      <section class="feed-stream" id="feed-posts-container">
+        <!-- Loaded dynamically by feed.js -->
+      </section>
+
+      <!-- Loading Indicator -->
+      <div id="feed-loading-spinner" style="display: none; text-align: center; padding: 2rem;">
+        <div class="text-muted text-sm">Curating more thoughts...</div>
+      </div>
+    </main>
+
+    <!-- Contextual Right Rail -->
+    <aside class="editorial-rail">
+      <!-- Trending Topics Widget -->
+      <div class="widget-card">
+        <h3 class="widget-title">🔥 What's Trending</h3>
+        <div id="trending-widget-list"></div>
+      </div>
+
+      <!-- Suggested Connections -->
+      <div class="widget-card">
+        <h3 class="widget-title">👥 People to Connect With</h3>
+        <div id="suggested-users-list"></div>
+      </div>
+
+      <!-- Quick Platform Info -->
+      <div style="padding: 0 0.5rem; color: var(--text-muted); font-size: 0.8rem; line-height: 1.6;">
+        <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.5rem;">
+          <a href="index.html">About</a>
+          <a href="explore.html">Discover</a>
+          <a href="activity.html">Activity</a>
+          <a href="settings.html">Privacy</a>
+        </div>
+        <div>&copy; 2026 VIBELY ✦ Share. Connect. Discover.</div>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- Mobile Bottom Navigation Bar -->
+  <nav class="mobile-bottom-bar">
+    <a href="feed.html" class="mobile-nav-item active">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+      <span>Home</span>
+    </a>
+    <a href="explore.html" class="mobile-nav-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <span>Discover</span>
+    </a>
+    <button class="mobile-create-fab" onclick="focusComposer()">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+    </button>
+    <a href="notifications.html" class="mobile-nav-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path></svg>
+      <span>Alerts</span>
+    </a>
+    <a href="profile.html" class="mobile-nav-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+      <span>Profile</span>
+    </a>
+  </nav>
+
+  <!-- Slide-in Comment Drawer -->
+  <div class="drawer-backdrop" id="drawer-backdrop" onclick="closeCommentDrawer()"></div>
+  <aside class="comment-drawer" id="comment-drawer">
+    <div class="comment-drawer-header">
+      <h3 style="font-size: 1.15rem; font-weight: 800;">Discussion</h3>
+      <button class="btn-icon" onclick="closeCommentDrawer()">&times;</button>
+    </div>
+    <div class="comment-drawer-list" id="comment-drawer-list"></div>
+    <div class="comment-drawer-footer">
+      <div style="display: flex; gap: 0.65rem;">
+        <input type="text" id="drawer-comment-input" class="form-control" placeholder="Share your perspective..." onkeydown="if(event.key==='Enter')submitComment(activeCommentDrawerPostId)">
+        <button class="btn btn-coral btn-sm" onclick="submitComment(activeCommentDrawerPostId)">Send</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Story Viewer Fullscreen Modal -->
+  <div class="story-viewer-modal" id="story-viewer-modal">
+    <button class="story-nav-btn story-nav-prev" onclick="prevStory()">‹</button>
+    <div class="story-viewer-container">
+      <div class="story-progress-bar-container" id="story-progress-box"></div>
+      <div class="story-viewer-header">
+        <div class="story-author-row" id="story-author-info"></div>
+        <button class="story-close-btn" onclick="closeStoryViewer()">&times;</button>
+      </div>
+      <div class="story-content-canvas" id="story-canvas" onclick="nextStory()"></div>
+    </div>
+    <button class="story-nav-btn story-nav-next" onclick="nextStory()">›</button>
+  </div>
+
+  <!-- Create Moment Modal -->
+  <div class="modal-backdrop" id="create-moment-modal">
+    <div class="modal-box" style="max-width: 480px;">
+      <div class="modal-header">
+        <h3 style="font-size: 1.15rem; font-weight: 800;">Share a 24h Moment</h3>
+        <button class="btn-icon" onclick="closeCreateMomentModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="moment-preview-card" style="border-radius: var(--radius-lg); padding: 2.5rem 1.5rem; text-align: center; color: #fff; background: linear-gradient(135deg, #FF6B6B, #FF8E72); margin-bottom: 1.25rem;">
+          <textarea id="moment-caption-input" class="form-control" maxlength="280" placeholder="What's happening right now?" style="background: transparent; border: none; color: #fff; font-size: 1.25rem; font-weight: 700; text-align: center; resize: none; min-height: 90px; outline: none;"></textarea>
+          <div id="moment-file-preview" style="margin-top: 0.75rem; display: none;">
+            <img id="moment-preview-img" src="" alt="Moment image" style="max-height: 180px; border-radius: var(--radius-md); object-fit: cover;">
+          </div>
+        </div>
+
+        <div style="margin-bottom: 1rem;">
+          <label class="form-label text-xs">Card Palette</label>
+          <div style="display: flex; gap: 0.5rem; margin-top: 0.35rem;">
+            <div onclick="setMomentBackground('linear-gradient(135deg, #FF6B6B, #FF8E72)')" style="width: 32px; height: 32px; border-radius: var(--radius-full); cursor: pointer; background: linear-gradient(135deg, #FF6B6B, #FF8E72);"></div>
+            <div onclick="setMomentBackground('linear-gradient(135deg, #845EC2, #D65DB1)')" style="width: 32px; height: 32px; border-radius: var(--radius-full); cursor: pointer; background: linear-gradient(135deg, #845EC2, #D65DB1);"></div>
+            <div onclick="setMomentBackground('linear-gradient(135deg, #00B4D8, #90E0EF)')" style="width: 32px; height: 32px; border-radius: var(--radius-full); cursor: pointer; background: linear-gradient(135deg, #00B4D8, #90E0EF);"></div>
+            <div onclick="setMomentBackground('linear-gradient(135deg, #059669, #34D399)')" style="width: 32px; height: 32px; border-radius: var(--radius-full); cursor: pointer; background: linear-gradient(135deg, #059669, #34D399);"></div>
+            <div onclick="setMomentBackground('linear-gradient(135deg, #F59E0B, #FCD34D)')" style="width: 32px; height: 32px; border-radius: var(--radius-full); cursor: pointer; background: linear-gradient(135deg, #F59E0B, #FCD34D);"></div>
+          </div>
+        </div>
+
+        <input type="file" id="moment-media-input" accept="image/*" style="display: none;">
+        <button type="button" class="btn btn-secondary btn-sm" onclick="document.getElementById('moment-media-input').click()">
+          📷 Attach Photo
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary btn-sm" onclick="closeCreateMomentModal()">Cancel</button>
+        <button class="btn btn-coral btn-sm" onclick="publishMoment()">Share Moment</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quote Post Modal -->
+  <div class="modal" id="quote-post-modal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Quote Post</h3>
+        <button class="btn-icon" onclick="closeQuoteModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <textarea id="quote-comment-input" class="form-control" placeholder="Add your perspective..." rows="3" style="margin-bottom: 1rem;"></textarea>
+        <!-- Original Post Preview -->
+        <div id="quote-preview-target" class="quote-post-card"></div>
+      </div>
+      <div class="modal-footer" style="display: flex; justify-content: space-between; align-items: center;">
+        <button class="btn btn-ghost btn-sm" onclick="submitInstantRepost()">🔁 Repost directly</button>
+        <div style="display: flex; gap: 0.5rem;">
+          <button class="btn btn-secondary btn-sm" onclick="closeQuoteModal()">Cancel</button>
+          <button class="btn btn-coral btn-sm" onclick="submitQuotePost()">Quote Post</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Drafts Drawer Modal -->
+  <div class="modal" id="drafts-modal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Saved Drafts</h3>
+        <button class="btn-icon" onclick="closeDraftsModal()">&times;</button>
+      </div>
+      <div class="modal-body" id="drafts-list-container">
+        <!-- Loaded dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Bookmark Collection Modal -->
+  <div class="modal" id="collection-modal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Save to Collection</h3>
+        <button class="btn-icon" onclick="closeCollectionModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+          <input type="text" id="new-collection-name" class="form-control" placeholder="New collection name...">
+          <button class="btn btn-coral btn-sm" onclick="createNewCollection()">Create</button>
+        </div>
+        <div id="collections-list-target">
+          <!-- Loaded dynamically -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Universal Media Lightbox Modal -->
+  <div class="lightbox-modal" id="media-lightbox-modal" onclick="closeLightbox(event)">
+    <button class="lightbox-close-btn" onclick="closeLightbox()">&times;</button>
+    <div class="lightbox-content">
+      <img id="lightbox-image-target" class="lightbox-img" src="" alt="Enlarged view">
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/stories.js"></script>
+  <script src="js/composer.js"></script>
+  <script src="js/comments.js"></script>
+  <script src="js/feed.js"></script>
+
+  <script>
+    function focusComposer() {
+      const textarea = document.getElementById('composer-text');
+      if (textarea) {
+        textarea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        textarea.focus();
+      }
+    }
+
+    function toggleComposerPoll() {
+      const pollBox = document.getElementById('composer-poll-box');
+      if (pollBox) {
+        pollBox.style.display = pollBox.style.display === 'none' ? 'block' : 'none';
+      }
+    }
+
+    function insertComposerTag(tag) {
+      const textarea = document.getElementById('composer-text');
+      if (textarea) {
+        textarea.value = textarea.value ? `${textarea.value} ${tag} ` : `${tag} `;
+        textarea.focus();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const user = await initNavigation(true);
+      if (user) {
+        initMomentsStrip();
+        initComposer((newPost) => {
+          const container = document.getElementById('feed-posts-container');
+          container.insertAdjacentHTML('afterbegin', renderPostCardHTML(newPost));
+        });
+        initFeed();
+      }
+    });
+
+    // Handle moment photo attach preview
+    document.getElementById('moment-media-input')?.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        selectedMomentFile = file;
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          const previewImg = document.getElementById('moment-preview-img');
+          const previewBox = document.getElementById('moment-file-preview');
+          if (previewImg && previewBox) {
+            previewImg.src = ev.target.result;
+            previewBox.style.display = 'block';
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  </script>
+</body>
+</html>

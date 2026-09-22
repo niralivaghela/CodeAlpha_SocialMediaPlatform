@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Messages ✦ Vibely</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <script src="js/theme.js"></script>
+</head>
+<body>
+
+  <!-- Sticky Top Navigation Bar -->
+  <header class="top-navbar">
+    <div class="nav-container">
+      <a href="feed.html" class="brand-logo">
+        <span>VIBELY</span>
+        <span class="brand-sparkle">✦</span>
+      </a>
+
+      <ul class="nav-center-menu">
+        <li><a href="feed.html" class="top-nav-link">Home</a></li>
+        <li><a href="explore.html" class="top-nav-link">Discover</a></li>
+        <li><a href="feed.html?filter=following" class="top-nav-link">Following</a></li>
+        <li><a href="activity.html" class="top-nav-link">Activity</a></li>
+      </ul>
+
+      <div class="nav-search-box">
+        <svg class="nav-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" class="nav-search-input" placeholder="Search people, posts & topics..." onclick="window.location.href='explore.html'">
+      </div>
+
+      <div class="nav-actions">
+        <a href="feed.html" class="btn btn-coral btn-sm">
+          ＋ Create
+        </a>
+
+        <a href="messages.html" class="btn-icon nav-action-btn active" title="Messages" style="color: var(--primary);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+          <span class="nav-badge-pill" id="nav-msg-badge" style="display: none;"></span>
+        </a>
+
+        <a href="notifications.html" class="btn-icon nav-action-btn" title="Notifications">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+          </svg>
+          <span class="nav-badge-pill" id="nav-notif-badge" style="display: none;"></span>
+        </a>
+
+        <!-- User Profile Dropdown -->
+        <div class="dropdown">
+          <div class="avatar avatar-sm nav-avatar-placeholder" id="nav-avatar-trigger" style="cursor: pointer;" onclick="toggleProfileDropdown()">
+            U
+          </div>
+          <div class="dropdown-menu" id="nav-profile-dropdown" style="width: 220px; right: 0;">
+            <a href="profile.html" class="dropdown-item">👤 Profile</a>
+            <a href="feed.html?filter=bookmarks" class="dropdown-item">🔖 Saved Posts</a>
+            <a href="activity.html" class="dropdown-item">📊 Your Activity</a>
+            <a href="settings.html" class="dropdown-item">⚙️ Settings</a>
+            <div style="padding: 0.5rem 0.85rem; border-top: 1px solid var(--border-subtle); margin-top: 0.35rem;">
+              <select class="form-control text-xs theme-select-input" onchange="VibelyTheme.set(this.value)">
+                <option value="light">☀ Light Theme</option>
+                <option value="dark">🌙 Dark Theme</option>
+                <option value="system">🖥 System Theme</option>
+              </select>
+            </div>
+            <button class="dropdown-item text-danger" onclick="handleLogout()" style="border-top: 1px solid var(--border-subtle); margin-top: 0.35rem;">🚪 Sign Out</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Messenger Container -->
+  <main class="page-container" style="max-width: 1400px; width: min(1400px, calc(100% - 48px)); margin: 1.5rem auto 3rem; padding: 0;">
+    <div class="messenger-card-shell" style="margin: 0 auto; width: 100%; max-width: 100%;">
+      
+      <!-- Conversations List Column -->
+      <aside class="messenger-conversations-pane">
+        <div class="messenger-search-bar" style="display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.25rem; border-bottom: 1px solid var(--border-color);">
+          <h2 style="font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em;">Messages</h2>
+          <button class="btn btn-coral btn-xs font-bold" onclick="openNewChatModal()" style="border-radius: var(--radius-full);">＋ New Chat</button>
+        </div>
+        <div class="messenger-list-items" id="conversations-list-container">
+          <div class="text-muted text-center" style="padding: 2rem 1rem;">Loading chats...</div>
+        </div>
+      </aside>
+
+      <!-- Active Chat Conversation Column -->
+      <section class="messenger-chat-pane">
+        <div class="messenger-chat-header" id="chat-header-info">
+          <div class="text-muted text-sm">Select a conversation on the left to start chatting</div>
+        </div>
+
+        <div class="messenger-chat-history" id="chat-messages-container">
+          <div class="empty-state" style="margin: auto;">
+            <div style="font-size: 2.5rem; margin-bottom: 0.75rem;">💬</div>
+            <div style="font-size: 1.15rem; font-weight: 700;">Your Conversations</div>
+            <p class="text-muted text-sm" style="max-width: 280px; margin: 0.5rem auto 0;">Send private, instant direct messages to friends and creators across Vibely.</p>
+          </div>
+        </div>
+
+        <div id="chat-typing-indicator" style="display: none; padding: 0.35rem 1.5rem; font-size: 0.75rem; color: var(--text-muted); font-style: italic;">
+          Typing...
+        </div>
+
+        <div class="messenger-input-row" id="chat-input-bar" style="display: none;">
+          <input type="text" id="chat-text-input" class="form-control" placeholder="Type a message..." autocomplete="off" style="border-radius: var(--radius-full);">
+          <button id="chat-send-btn" class="btn btn-coral btn-sm" style="padding: 0.65rem 1.4rem;">
+            Send
+          </button>
+        </div>
+      </section>
+
+      <!-- New Conversation User Picker Modal -->
+      <div class="modal" id="new-chat-modal">
+        <div class="modal-dialog" style="max-width: 440px;">
+          <div class="modal-header">
+            <h3 class="modal-title">New Conversation</h3>
+            <button class="btn-icon" onclick="closeNewChatModal()">&times;</button>
+          </div>
+          <div class="modal-body">
+            <input type="text" id="new-chat-search-input" class="form-control" placeholder="Search people by name or @username..." style="margin-bottom: 1rem;" oninput="searchUsersForNewChat(this.value)">
+            <div id="new-chat-users-list" style="max-height: 280px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.5rem;">
+              <!-- Loaded dynamically -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Mobile Bottom Navigation -->
+  <nav class="mobile-bottom-bar">
+    <div class="mobile-bottom-inner">
+      <a href="feed.html" class="mobile-bottom-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+        <span>Home</span>
+      </a>
+      <a href="explore.html" class="mobile-bottom-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <span>Discover</span>
+      </a>
+      <a href="messages.html" class="mobile-bottom-link active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        <span>Messages</span>
+      </a>
+      <a href="notifications.html" class="mobile-bottom-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path></svg>
+        <span>Alerts</span>
+      </a>
+      <a href="profile.html" class="mobile-bottom-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        <span>Profile</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/messages.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      await initNavigation(true);
+      initMessagesPage();
+    });
+  </script>
+</body>
+</html>

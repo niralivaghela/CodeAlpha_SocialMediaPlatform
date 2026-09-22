@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account ✦ Vibely</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <script src="js/theme.js"></script>
+</head>
+<body class="auth-page-wrapper">
+
+  <div class="auth-card">
+    <div class="auth-brand" style="text-align: center; margin-bottom: 1.5rem;">
+      <a href="index.html" class="brand-logo" style="justify-content: center; margin-bottom: 0.35rem;">
+        <span>VIBELY</span>
+        <span class="brand-sparkle">✦</span>
+      </a>
+      <div class="auth-tagline" style="font-size: 0.85rem; color: var(--text-muted); font-weight: 500;">"Share. Connect. Discover."</div>
+    </div>
+
+    <div style="text-align: center; margin-bottom: 1.5rem;">
+      <h1 style="font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.25rem;">Create Your Account</h1>
+      <p class="text-secondary text-sm">Join an authentic, editorial space for thoughts and visual moments.</p>
+    </div>
+
+    <form id="register-form">
+      <div class="form-group">
+        <label for="reg-fullname" class="form-label font-bold">Full Name</label>
+        <input type="text" id="reg-fullname" class="form-control" placeholder="e.g. Nirali Vaghela" required autocomplete="name">
+      </div>
+
+      <div class="form-group">
+        <label for="reg-username" class="form-label font-bold">Username</label>
+        <input type="text" id="reg-username" class="form-control" placeholder="e.g. nirali_v" required autocomplete="username">
+      </div>
+
+      <div class="form-group">
+        <label for="reg-email" class="form-label font-bold">Email Address</label>
+        <input type="email" id="reg-email" class="form-control" placeholder="you@example.com" required autocomplete="email">
+      </div>
+
+      <div class="form-group">
+        <label for="reg-password" class="form-label font-bold">Password</label>
+        <input type="password" id="reg-password" class="form-control" placeholder="At least 8 characters" required autocomplete="new-password">
+        <div class="password-meter">
+          <div id="password-meter-fill" class="password-meter-fill"></div>
+        </div>
+        <div id="password-meter-text" class="text-xs font-semibold" style="margin-top: 0.35rem;"></div>
+      </div>
+
+      <div class="form-group">
+        <label for="reg-confirm-password" class="form-label font-bold">Confirm Password</label>
+        <input type="password" id="reg-confirm-password" class="form-control" placeholder="Repeat your password" required autocomplete="new-password">
+        <div id="confirm-feedback" class="input-feedback"></div>
+      </div>
+
+      <button type="submit" id="register-submit-btn" class="btn btn-coral" style="width: 100%; padding: 0.85rem; font-size: 1rem; border-radius: var(--radius-full); margin-top: 0.5rem;">
+        Sign Up ✦
+      </button>
+    </form>
+
+    <div class="auth-footer" style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-secondary);">
+      Already have an account? <a href="login.html" class="font-bold" style="color: var(--primary);">Sign in here</a>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin & Moderation ✦ Vibely</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <script src="js/theme.js"></script>
+</head>
+<body>
+
+  <!-- Sticky Top Navigation Bar -->
+  <header class="top-navbar">
+    <div class="nav-container">
+      <a href="feed.html" class="brand-logo">
+        <span>VIBELY</span>
+        <span class="brand-sparkle">✦</span>
+      </a>
+
+      <ul class="nav-center-menu">
+        <li><a href="feed.html" class="top-nav-link">Home</a></li>
+        <li><a href="explore.html" class="top-nav-link">Discover</a></li>
+        <li><a href="activity.html" class="top-nav-link">Activity</a></li>
+        <li><a href="admin.html" class="top-nav-link active">Admin</a></li>
+      </ul>
+
+      <div class="nav-search-box">
+        <svg class="nav-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" class="nav-search-input" placeholder="Search people, posts & topics...">
+      </div>
+
+      <div class="nav-actions">
+        <a href="messages.html" class="btn-icon nav-action-btn" title="Messages">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+          <span class="nav-badge-pill" id="nav-msg-badge" style="display: none;"></span>
+        </a>
+
+        <a href="notifications.html" class="btn-icon nav-action-btn" title="Notifications">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+          </svg>
+          <span class="nav-badge-pill" id="nav-notif-badge" style="display: none;"></span>
+        </a>
+
+        <!-- User Profile Dropdown -->
+        <div class="dropdown">
+          <div class="avatar avatar-sm nav-avatar-placeholder" id="nav-avatar-trigger" style="cursor: pointer;" onclick="toggleProfileDropdown()">
+            U
+          </div>
+          <div class="dropdown-menu" id="nav-profile-dropdown" style="width: 220px; right: 0;">
+            <a href="profile.html" class="dropdown-item">👤 Profile</a>
+            <a href="feed.html?filter=bookmarks" class="dropdown-item">🔖 Saved Posts</a>
+            <a href="activity.html" class="dropdown-item">📊 Your Activity</a>
+            <a href="settings.html" class="dropdown-item">⚙️ Settings</a>
+            <a href="admin.html" class="dropdown-item" style="font-weight: 700; color: var(--coral-primary);">🛡️ Admin Center</a>
+            <div style="padding: 0.5rem 0.85rem; border-top: 1px solid var(--border-subtle); margin-top: 0.35rem;">
+              <select class="form-control text-xs theme-select-input" onchange="VibelyTheme.set(this.value)">
+                <option value="light">☀ Light Theme</option>
+                <option value="dark">🌙 Dark Theme</option>
+                <option value="system">🖥 System Theme</option>
+              </select>
+            </div>
+            <button class="dropdown-item text-danger" onclick="handleLogout()" style="border-top: 1px solid var(--border-subtle); margin-top: 0.35rem;">🚪 Sign Out</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Admin Content Container -->
+  <div style="max-width: 1200px; margin: 2rem auto; padding: 0 1.5rem;">
+    
+    <!-- Admin Header -->
+    <div style="margin-bottom: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.25rem;">
+          <span style="font-size: 1.75rem;">🛡️</span>
+          <h1 style="font-size: 1.85rem; font-weight: 800; letter-spacing: -0.03em; margin: 0;">Admin & Moderation Hub</h1>
+        </div>
+        <p class="text-secondary text-sm">Real-time platform telemetry, safety moderation queue, and user enforcement controls.</p>
+      </div>
+      <div style="display: flex; gap: 0.75rem;">
+        <button class="btn btn-outline btn-sm" onclick="loadAdminData()">🔄 Refresh Data</button>
+      </div>
+    </div>
+
+    <!-- Live Telemetry Stats Grid -->
+    <div class="admin-grid" id="admin-stats-container">
+      <div class="admin-stat-card">
+        <span class="admin-stat-label">Total Registered Users</span>
+        <div class="admin-stat-number" id="stat-total-users">-</div>
+        <span class="text-xs text-muted">100% database-backed</span>
+      </div>
+      <div class="admin-stat-card">
+        <span class="admin-stat-label">Published Posts</span>
+        <div class="admin-stat-number" id="stat-total-posts">-</div>
+        <span class="text-xs text-muted">Global published posts</span>
+      </div>
+      <div class="admin-stat-card">
+        <span class="admin-stat-label">Community Comments</span>
+        <div class="admin-stat-number" id="stat-total-comments">-</div>
+        <span class="text-xs text-muted">Discussions & replies</span>
+      </div>
+      <div class="admin-stat-card">
+        <span class="admin-stat-label">Active Moments (24h)</span>
+        <div class="admin-stat-number" id="stat-active-stories">-</div>
+        <span class="text-xs text-muted">Stories active right now</span>
+      </div>
+      <div class="admin-stat-card">
+        <span class="admin-stat-label">Pending Reports</span>
+        <div class="admin-stat-number" id="stat-pending-reports" style="color: var(--coral-primary);">-</div>
+        <span class="text-xs text-muted">Awaiting moderator review</span>
+      </div>
+    </div>
+
+    <!-- Moderation Queue Card -->
+    <div class="card" style="padding: 1.75rem; margin-bottom: 2.5rem; background: var(--bg-surface); border-radius: var(--radius-lg); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
+      <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.25rem;">
+        <div>
+          <h2 style="font-size: 1.25rem; font-weight: 700; margin: 0 0 0.25rem 0;">Safety Moderation Queue</h2>
+          <p class="text-secondary text-xs">Review user-submitted reports for harassment, spam, hate speech, or inappropriate content.</p>
+        </div>
+        <div style="display: flex; gap: 0.5rem;" class="filter-pills" id="report-filter-pills">
+          <button class="pill-btn active" onclick="filterReports('all', this)">All</button>
+          <button class="pill-btn" onclick="filterReports('pending', this)">Pending</button>
+          <button class="pill-btn" onclick="filterReports('resolved', this)">Resolved</button>
+          <button class="pill-btn" onclick="filterReports('dismissed', this)">Dismissed</button>
+        </div>
+      </div>
+
+      <div style="overflow-x: auto;">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Reporter</th>
+              <th>Reported Target</th>
+              <th>Reason & Notes</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="reports-table-body">
+            <tr>
+              <td colspan="7" style="text-align: center; color: var(--text-muted); padding: 2rem;">Loading reports queue...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- User & Content Enforcement Section -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+      <!-- User Ban Tool -->
+      <div class="card" style="padding: 1.75rem; background: var(--bg-surface); border-radius: var(--radius-lg); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
+        <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem;">User Enforcement Tool</h3>
+        <p class="text-secondary text-xs" style="margin-bottom: 1.25rem;">Look up any user account by username to inspect status or toggle suspension/deactivation.</p>
+
+        <form id="admin-user-lookup-form" onsubmit="handleUserLookup(event)" style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+          <input type="text" id="admin-user-input" class="form-control" placeholder="Enter username (e.g. sophia_demo)" required style="flex: 1;">
+          <button type="submit" class="btn btn-outline btn-sm">Lookup</button>
+        </form>
+
+        <div id="admin-user-details" style="display: none; padding: 1rem; border-radius: var(--radius-md); background: var(--bg-surface-secondary); border: 1px solid var(--border-subtle);">
+          <!-- Dynamic User Info -->
+        </div>
+      </div>
+
+      <!-- Quick Post Deletion Tool -->
+      <div class="card" style="padding: 1.75rem; background: var(--bg-surface); border-radius: var(--radius-lg); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
+        <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem;">Content Moderation Tool</h3>
+        <p class="text-secondary text-xs" style="margin-bottom: 1.25rem;">Directly remove any violating post across the platform using its unique post ID.</p>
+
+        <form id="admin-post-delete-form" onsubmit="handleAdminPostDelete(event)" style="display: flex; gap: 0.5rem;">
+          <input type="number" id="admin-post-id-input" class="form-control" placeholder="Post ID (e.g. 4)" required style="flex: 1;">
+          <button type="submit" class="btn btn-danger btn-sm">Delete Post</button>
+        </form>
+        <p class="text-xs text-muted" style="margin-top: 0.75rem;">Deleting a post will permanently remove the record, comments, reactions, and bookmarks from the database.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

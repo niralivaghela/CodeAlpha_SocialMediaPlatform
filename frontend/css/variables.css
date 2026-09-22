@@ -1,0 +1,128 @@
+/* ==========================================================================
+   VIBELY — NEXT GENERATION LIGHT-FIRST DESIGN TOKENS
+   Theme: Warm Ivory / Editorial / Premium Human Social
+   ========================================================================== */
+
+:root,
+[data-theme="light"] {
+  /* Canvas & Surfaces (Warm Ivory, Pure White, Soft Cream) */
+  --bg-body: #FAF8F5;
+  --bg-surface: #FFFFFF;
+  --bg-surface-secondary: #F4EFEA;
+  --bg-surface-hover: #EFE9E2;
+  --bg-surface-elevated: #FFFFFF;
+  --bg-surface-subtle: #F8F5F0;
+
+  /* Typography & Text */
+  --font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --text-main: #1C1B1F;
+  --text-secondary: #4A4643;
+  --text-muted: #7A7571;
+  --text-inverse: #FFFFFF;
+
+  /* Borders & Dividers */
+  --border-color: #EBE4DA;
+  --border-subtle: #F2ECE4;
+  --border-focus: #FF6B6B;
+
+  /* Warm Social Palette & Accents */
+  --primary: #FF6B6B;
+  --primary-hover: #EE5A5A;
+  --primary-light: rgba(255, 107, 107, 0.12);
+  --primary-glow: rgba(255, 107, 107, 0.25);
+  --primary-gradient: linear-gradient(135deg, #FF6B6B 0%, #FF8E72 100%);
+  --brand-sparkle: #F59E0B;
+
+  /* Editorial Accents */
+  --accent-coral: #FF6B6B;
+  --accent-coral-bg: #FFF1F0;
+  --accent-honey: #F59E0B;
+  --accent-honey-bg: #FEF3C7;
+  --accent-violet: #845EC2;
+  --accent-violet-bg: #F3EEFB;
+  --accent-sky: #00B4D8;
+  --accent-sky-bg: #E0F7FA;
+  --accent-mint: #059669;
+  --accent-mint-bg: #E6F7F0;
+
+  /* State Colors */
+  --color-online: #059669;
+  --color-away: #F59E0B;
+  --color-offline: #9CA3AF;
+  --color-like: #E11D48;
+  --color-like-bg: rgba(225, 29, 72, 0.1);
+
+  /* Shadows (Warm, Soft, Editorial) */
+  --shadow-sm: 0 1px 3px rgba(44, 38, 30, 0.04), 0 1px 2px rgba(44, 38, 30, 0.03);
+  --shadow-md: 0 4px 16px rgba(44, 38, 30, 0.06), 0 1px 3px rgba(44, 38, 30, 0.04);
+  --shadow-lg: 0 10px 30px rgba(44, 38, 30, 0.09), 0 2px 6px rgba(44, 38, 30, 0.04);
+  --shadow-modal: 0 20px 50px rgba(35, 30, 25, 0.16), 0 4px 12px rgba(35, 30, 25, 0.08);
+
+  /* Radii */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --radius-xl: 28px;
+  --radius-full: 9999px;
+
+  /* Glassmorphism */
+  --glass-bg: rgba(255, 255, 255, 0.88);
+  --glass-border: rgba(235, 228, 218, 0.7);
+
+  /* Transitions */
+  --transition-fast: 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==========================================================================
+   DARK THEME (Warm Charcoal & Amber Glow — Not Cold Purple Dashboard)
+   ========================================================================== */
+[data-theme="dark"] {
+  --bg-body: #131215;
+  --bg-surface: #1C1A1F;
+  --bg-surface-secondary: #252229;
+  --bg-surface-hover: #2D2A32;
+  --bg-surface-elevated: #26232B;
+  --bg-surface-subtle: #18171B;
+
+  --text-main: #F5F3F0;
+  --text-secondary: #B8B3AC;
+  --text-muted: #7C7770;
+  --text-inverse: #131215;
+
+  --border-color: #2F2C33;
+  --border-subtle: #232027;
+  --border-focus: #FF6B6B;
+
+  --primary: #FF7B7B;
+  --primary-hover: #FF8F8F;
+  --primary-light: rgba(255, 123, 123, 0.18);
+  --primary-glow: rgba(255, 123, 123, 0.3);
+  --primary-gradient: linear-gradient(135deg, #FF7B7B 0%, #FFA07A 100%);
+
+  --accent-coral: #FF7B7B;
+  --accent-coral-bg: rgba(255, 123, 123, 0.15);
+  --accent-honey: #FBBF24;
+  --accent-honey-bg: rgba(251, 191, 36, 0.15);
+  --accent-violet: #A78BFA;
+  --accent-violet-bg: rgba(167, 139, 250, 0.15);
+  --accent-sky: #38BDF8;
+  --accent-sky-bg: rgba(56, 189, 248, 0.15);
+  --accent-mint: #34D399;
+  --accent-mint-bg: rgba(52, 211, 153, 0.15);
+
+  --color-online: #34D399;
+  --color-away: #FBBF24;
+  --color-offline: #6B7280;
+  --color-like: #FB7185;
+  --color-like-bg: rgba(251, 113, 133, 0.18);
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 18px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 12px 36px rgba(0, 0, 0, 0.5);
+  --shadow-modal: 0 24px 60px rgba(0, 0, 0, 0.65);
+
+  --glass-bg: rgba(28, 26, 31, 0.88);
+  --glass-border: rgba(47, 44, 51, 0.8);
+}

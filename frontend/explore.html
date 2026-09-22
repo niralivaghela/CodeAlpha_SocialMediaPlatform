@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Discover ✦ Vibely</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <script src="js/theme.js"></script>
+</head>
+<body>
+
+  <!-- Sticky Top Navigation Bar -->
+  <header class="top-navbar">
+    <div class="nav-container">
+      <a href="feed.html" class="brand-logo">
+        <span>VIBELY</span>
+        <span class="brand-sparkle">✦</span>
+      </a>
+
+      <ul class="nav-center-menu">
+        <li><a href="feed.html" class="top-nav-link">Home</a></li>
+        <li><a href="explore.html" class="top-nav-link active">Discover</a></li>
+        <li><a href="feed.html?filter=following" class="top-nav-link">Following</a></li>
+        <li><a href="activity.html" class="top-nav-link">Activity</a></li>
+      </ul>
+
+      <div class="nav-search-box">
+        <svg class="nav-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="explore-search-input" class="nav-search-input" placeholder="Search people, posts & topics...">
+      </div>
+
+      <div class="nav-actions">
+        <a href="feed.html" class="btn btn-coral btn-sm">＋ Create</a>
+
+        <a href="messages.html" class="btn-icon nav-action-btn" title="Messages">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+          <span class="nav-badge-pill" id="nav-msg-badge" style="display: none;"></span>
+        </a>
+
+        <a href="notifications.html" class="btn-icon nav-action-btn" title="Notifications">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+          </svg>
+          <span class="nav-badge-pill" id="nav-notif-badge" style="display: none;"></span>
+        </a>
+
+        <div class="dropdown">
+          <div class="avatar avatar-sm nav-avatar-placeholder" id="nav-avatar-trigger" style="cursor: pointer;" onclick="toggleProfileDropdown()">U</div>
+          <div class="dropdown-menu" id="nav-profile-dropdown" style="width: 220px; right: 0;">
+            <a href="profile.html" class="dropdown-item">👤 Profile</a>
+            <a href="feed.html?filter=bookmarks" class="dropdown-item">🔖 Saved Posts</a>
+            <a href="activity.html" class="dropdown-item">📊 Your Activity</a>
+            <a href="settings.html" class="dropdown-item">⚙️ Settings</a>
+            <div style="padding: 0.5rem 0.85rem; border-top: 1px solid var(--border-subtle); margin-top: 0.35rem;">
+              <select class="form-control text-xs theme-select-input" onchange="VibelyTheme.set(this.value)">
+                <option value="light">☀ Light Theme</option>
+                <option value="dark">🌙 Dark Theme</option>
+                <option value="system">🖥 System Theme</option>
+              </select>
+            </div>
+            <button class="dropdown-item text-danger" onclick="handleLogout()" style="border-top: 1px solid var(--border-subtle); margin-top: 0.35rem;">🚪 Sign Out</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Discover Layout -->
+  <div class="discover-container" style="max-width: 1300px; margin: 1.5rem auto 5rem; padding: 0 1.5rem;">
+    <div class="discover-header-bar" style="margin-bottom: 2rem;">
+      <h1 style="font-size: 2.25rem; font-weight: 900; margin-bottom: 0.4rem; letter-spacing: -0.03em;">Discover VIBELY</h1>
+      <p class="text-secondary text-sm">Explore fresh ideas, inspiring photography, and trending thoughts from creators worldwide.</p>
+      
+      <!-- Category Filter Pills -->
+      <div class="discover-categories-pills" style="margin-top: 1.25rem;">
+        <button class="cat-pill active" data-cat="all">For You</button>
+        <button class="cat-pill" data-cat="trending">🔥 Trending</button>
+        <button class="cat-pill" data-cat="photography">📷 Photography</button>
+        <button class="cat-pill" data-cat="tech">💻 Technology</button>
+        <button class="cat-pill" data-cat="design">🎨 Design</button>
+        <button class="cat-pill" data-cat="learning">📚 Learning</button>
+      </div>
+    </div>
+
+    <!-- 1. Featured Content Spotlight Hero -->
+    <div id="discover-featured-container" style="margin-bottom: 2.5rem;">
+      <!-- Populated by explore.js -->
+    </div>
+
+    <!-- 2. Trending Hashtags Strip -->
+    <div style="margin-bottom: 2.5rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <h2 style="font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em;">Trending Topics & Tags</h2>
+        <span class="text-muted text-xs font-bold" style="text-transform: uppercase;">Real-time</span>
+      </div>
+      <div id="discover-trending-tags-container" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+        <!-- Populated by explore.js -->
+      </div>
+    </div>
+
+    <!-- 3. Recommended Creators Spotlight -->
+    <div style="margin-bottom: 2.5rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <h2 style="font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em;">Inspiring Creators to Follow</h2>
+        <span class="text-muted text-xs font-bold" style="text-transform: uppercase;">Community</span>
+      </div>
+      <div id="discover-creators-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem;">
+        <!-- Populated by explore.js -->
+      </div>
+    </div>
+
+    <!-- 4. Visual Media Discovery Grid -->
+    <div style="margin-bottom: 2.5rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <h2 style="font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em;">Visual Gallery & Moments</h2>
+        <span class="text-muted text-xs font-bold" style="text-transform: uppercase;">Photography</span>
+      </div>
+      <div id="discover-media-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem;">
+        <!-- Populated by explore.js -->
+      </div>
+    </div>
+
+    <!-- 5. Popular Feed Stream -->
+    <div>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <h2 style="font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em;">Popular Posts</h2>
+        <span class="text-muted text-xs font-bold" style="text-transform: uppercase;">Top Engaged</span>
+      </div>
+      <section class="masonry-grid" id="discover-masonry-grid">
+        <!-- Populated by explore.js -->
+      </section>
+    </div>
+  </div>
+
+  <!-- Mobile Bottom Navigation Bar -->
+  <nav class="mobile-bottom-bar">
+    <a href="feed.html" class="mobile-nav-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+      <span>Home</span>
+    </a>
+    <a href="explore.html" class="mobile-nav-item active">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <span>Discover</span>
+    </a>
+    <a href="feed.html" class="mobile-create-fab">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+    </a>
+    <a href="notifications.html" class="mobile-nav-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path></svg>
+      <span>Alerts</span>
+    </a>
+    <a href="profile.html" class="mobile-nav-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+      <span>Profile</span>
+    </a>
+  </nav>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/explore.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      await initNavigation(false);
+      initExplorePage();
+    });
+  </script>
+</body>
+</html>

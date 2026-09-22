@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vibely ✦ Share ideas. Find your people. Discover what matters.</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <script src="js/theme.js"></script>
+</head>
+<body>
+
+  <!-- Top Sticky Navigation Bar -->
+  <header class="top-navbar">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo">
+        <span>VIBELY</span>
+        <span class="brand-sparkle">✦</span>
+      </a>
+
+      <ul class="nav-center-menu">
+        <li><a href="explore.html" class="top-nav-link">Discover</a></li>
+        <li><a href="#features" class="top-nav-link">Features</a></li>
+        <li><a href="#community" class="top-nav-link">Community</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <select id="theme-select" class="form-control theme-select-input" style="width: auto; padding: 0.4rem 0.8rem; font-size: 0.825rem; border-radius: var(--radius-full);" onchange="VibelyTheme.set(this.value)">
+          <option value="light">☀ Light</option>
+          <option value="dark">🌙 Dark</option>
+          <option value="system">🖥 System</option>
+        </select>
+        <a href="login.html" class="btn btn-ghost btn-sm">Sign In</a>
+        <a href="register.html" class="btn btn-coral btn-sm">Join VIBELY</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Editorial Magazine Hero Section -->
+  <section class="landing-hero-section">
+    <div>
+      <div class="landing-badge">
+        <span>✦ A fresh light-first community</span>
+      </div>
+
+      <h1 class="landing-title">
+        Share ideas.<br>
+        Find your people.<br>
+        <span style="color: var(--primary);">Discover what matters.</span>
+      </h1>
+
+      <p class="landing-subtitle">
+        A warm, human-first social discovery space where conversations thrive, disappearing Moments inspire, and creativity feels effortless. No fake numbers. No algorithmic chaos.
+      </p>
+
+      <div class="landing-cta-group">
+        <a href="register.html" class="btn btn-coral btn-lg">
+          Join VIBELY
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+        <a href="explore.html" class="btn btn-secondary btn-lg">Explore Discover</a>
+      </div>
+    </div>
+
+    <!-- Editorial Staggered Collage Mockup -->
+    <div class="landing-collage-box">
+      <!-- Card 1: Moment Preview -->
+      <div class="collage-card collage-card-1">
+        <div style="display: flex; align-items: center; gap: 0.65rem; margin-bottom: 0.75rem;">
+          <div class="moment-ring" style="padding: 2px;">
+            <div class="moment-avatar-inner" style="width: 36px; height: 36px; font-size: 0.85rem;">SC</div>
+          </div>
+          <div>
+            <div class="font-bold text-xs" style="color: var(--text-main);">Sophia Chen</div>
+            <div class="text-muted text-xs">Shared a Moment • 2h ago</div>
+          </div>
+        </div>
+        <div style="padding: 1rem; border-radius: var(--radius-md); background: linear-gradient(135deg, #FF6B6B, #FF8E72); color: #fff; font-weight: 700; font-size: 0.95rem; text-align: center;">
+          Morning coffee & creative design sprints ☕✨
+        </div>
+      </div>
+
+      <!-- Card 2: Editorial Post Preview -->
+      <div class="collage-card collage-card-2">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
+          <div style="display: flex; align-items: center; gap: 0.65rem;">
+            <div class="avatar avatar-sm">AR</div>
+            <div>
+              <div class="font-bold text-sm">Alex Rivera</div>
+              <div class="text-muted text-xs">@alex_demo</div>
+            </div>
+          </div>
+          <span class="badge badge-coral">Trending</span>
+        </div>
+        <p class="text-sm" style="color: var(--text-main); margin-bottom: 0.85rem; line-height: 1.5;">
+          The web feels better when design is light-first, warm, and generous with whitespace. What do you think? <span class="text-coral font-bold">#design #vibely</span>
+        </p>
+        <div style="display: flex; align-items: center; justify-content: space-between; font-size: 0.825rem; color: var(--text-muted); border-top: 1px solid var(--border-subtle); padding-top: 0.65rem;">
+          <span>❤️ 24 likes</span>
+          <span>💬 8 replies</span>
+          <span>🔖 Saved</span>
+        </div>
+      </div>
+
+      <!-- Card 3: Poll Card -->
+      <div class="collage-card collage-card-3">
+        <div class="font-bold text-xs" style="color: var(--text-main); margin-bottom: 0.5rem;">📊 What inspires you most?</div>
+        <div style="background: var(--bg-surface-secondary); padding: 0.45rem 0.75rem; border-radius: var(--radius-sm); font-size: 0.8rem; font-weight: 600; margin-bottom: 0.35rem; display: flex; justify-content: space-between;">
+          <span>Creative community</span>
+          <span class="font-bold text-coral">64%</span>
+        </div>
+        <div style="background: var(--bg-surface-secondary); padding: 0.45rem 0.75rem; border-radius: var(--radius-sm); font-size: 0.8rem; font-weight: 600; display: flex; justify-content: space-between;">
+          <span>Deep discussions</span>
+          <span class="text-muted">36%</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Asymmetrical Feature Section -->
+  <section class="landing-features-container" id="features">
+    <div style="text-align: center; max-width: 620px; margin: 0 auto 3.5rem;">
+      <span class="badge badge-coral" style="margin-bottom: 0.75rem;">Platform Architecture</span>
+      <h2 style="font-size: 2.5rem; font-weight: 900; margin-bottom: 0.75rem; letter-spacing: -0.03em;">Built for Real Connection</h2>
+      <p class="text-secondary text-sm">Every counter is real. Every profile is backed by our database. Designed without corporate bloat.</p>
+    </div>
+
+    <div class="asymmetric-features-grid">
+      <!-- Large Featured Panel -->
+      <div class="feature-large-card">
+        <div>
+          <div class="feature-icon-mark" style="background: var(--accent-coral-bg); color: var(--accent-coral);">✨</div>
+          <h3 style="font-size: 1.85rem; font-weight: 900; margin-bottom: 0.85rem; letter-spacing: -0.03em;">
+            Your world, in one place.
+          </h3>
+          <p class="text-secondary" style="font-size: 1.05rem; line-height: 1.65; margin-bottom: 1.5rem;">
+            Whether you are documenting a project, asking the community for perspective via interactive polls, or sharing moments that disappear in 24 hours, Vibely brings human warmth back to social media.
+          </p>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.75rem; color: var(--text-main); font-weight: 600; font-size: 0.95rem;">
+            <li>✦ 100% real database counters and verified records</li>
+            <li>✦ Disappearing 24-hour Moments with fullscreen viewer</li>
+            <li>✦ Threaded discussions with deep nested replies</li>
+          </ul>
+        </div>
+        <div style="margin-top: 2rem;">
+          <a href="register.html" class="btn btn-coral btn-sm">Explore Community →</a>
+        </div>
+      </div>
+
+      <!-- Small Feature 1 -->
+      <div class="feature-small-card">
+        <div class="feature-icon-mark" style="background: var(--accent-honey-bg); color: #B45309;">⚡</div>
+        <h4 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.4rem;">Moments That Vanish</h4>
+        <p class="text-secondary text-sm">Share quick reflections, behind-the-scenes snapshots, and thoughts that naturally expire after 24 hours.</p>
+      </div>
+
+      <!-- Small Feature 2 -->
+      <div class="feature-small-card">
+        <div class="feature-icon-mark" style="background: var(--accent-violet-bg); color: var(--accent-violet);">🎨</div>
+        <h4 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.4rem;">Editorial Masonry Discover</h4>
+        <p class="text-secondary text-sm">A multi-column magazine grid curating real stories, photography, design showcases, and technology conversations.</p>
+      </div>
+
+      <!-- Small Feature 3 -->
+      <div class="feature-small-card">
+        <div class="feature-icon-mark" style="background: var(--accent-sky-bg); color: #0284C7;">💬</div>
+        <h4 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.4rem;">Direct Real-Time Chat</h4>
+        <p class="text-secondary text-sm">Send private thoughts with instant message delivery, typing presence, and soft conversational bubbles.</p>
+      </div>
+
+      <!-- Small Feature 4 -->
+      <div class="feature-small-card">
+        <div class="feature-icon-mark" style="background: var(--accent-mint-bg); color: var(--accent-mint);">🔒</div>
+        <h4 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.4rem;">Account Privacy & Control</h4>
+        <p class="text-secondary text-sm">Toggle private profile protection, manage blocked accounts, and report inappropriate content seamlessly.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Community Callout -->
+  <section class="landing-features-container" id="community" style="margin-top: 3rem; text-align: center;">
+    <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-xl); padding: 4rem 2rem; box-shadow: var(--shadow-sm);">
+      <h2 style="font-size: 2.75rem; font-weight: 900; margin-bottom: 1rem; letter-spacing: -0.03em;">Ready to experience a better social space?</h2>
+      <p class="text-secondary text-sm" style="max-width: 520px; margin: 0 auto 2rem; font-size: 1.05rem;">
+        Join creators, developers, researchers, and designers already sharing on VIBELY.
+      </p>
+      <a href="register.html" class="btn btn-coral btn-lg">Join VIBELY Now</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer style="border-top: 1px solid var(--border-color); background: var(--bg-surface); padding: 3rem 1.5rem 2rem; margin-top: 5rem;">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border-subtle);">
+      <a href="index.html" class="brand-logo">
+        <span>VIBELY</span>
+        <span class="brand-sparkle">✦</span>
+      </a>
+      <div style="display: flex; gap: 2rem; font-weight: 600; font-size: 0.9rem; color: var(--text-secondary);">
+        <a href="feed.html">Feed</a>
+        <a href="explore.html">Discover</a>
+        <a href="login.html">Sign In</a>
+        <a href="register.html">Register</a>
+      </div>
+    </div>
+    <div style="max-width: 1200px; margin: 1.5rem auto 0; text-align: center; color: var(--text-muted); font-size: 0.85rem;">
+      &copy; 2026 VIBELY. Share. Connect. Discover. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    const collage = document.querySelector('.landing-collage-box');
+    if (collage && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.addEventListener('mousemove', (e) => {
+        const { clientX, clientY } = e;
+        const xOffset = (clientX / window.innerWidth - 0.5) * 15;
+        const yOffset = (clientY / window.innerHeight - 0.5) * 15;
+        collage.style.transform = `perspective(1000px) rotateY(${xOffset * 0.4}deg) rotateX(${-yOffset * 0.4}deg) translateY(${yOffset * 0.3}px)`;
+      });
+    }
+  </script>
+</body>
+</html>
