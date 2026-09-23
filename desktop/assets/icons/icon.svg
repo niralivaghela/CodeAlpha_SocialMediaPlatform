@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E1B26"/>
+      <stop offset="50%" stop-color="#14121A"/>
+      <stop offset="100%" stop-color="#0E0C12"/>
+    </linearGradient>
+
+    <!-- Outer subtle rim glow -->
+    <linearGradient id="rimGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF6B6B" stop-opacity="0.35"/>
+      <stop offset="50%" stop-color="#6C5CE7" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#00D2D3" stop-opacity="0.3"/>
+    </linearGradient>
+
+    <!-- Left Wing Gradient: Coral to Warm Amber -->
+    <linearGradient id="leftWingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF5252"/>
+      <stop offset="40%" stop-color="#FF7675"/>
+      <stop offset="100%" stop-color="#FFAA5A"/>
+    </linearGradient>
+
+    <!-- Right Wing Gradient: Royal Violet to Electric Sky -->
+    <linearGradient id="rightWingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#845EC2"/>
+      <stop offset="50%" stop-color="#6C5CE7"/>
+      <stop offset="100%" stop-color="#00D2D3"/>
+    </linearGradient>
+
+    <!-- Apex Core Node Gradient -->
+    <linearGradient id="coreNodeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF7675"/>
+      <stop offset="100%" stop-color="#6C5CE7"/>
+    </linearGradient>
+
+    <!-- Drop Shadows -->
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="24" flood-color="#000000" flood-opacity="0.55"/>
+    </filter>
+
+    <filter id="symbolGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Squircle Canvas with Rim -->
+  <rect x="16" y="16" width="480" height="480" rx="120" fill="url(#bgGrad)" stroke="url(#rimGlow)" stroke-width="4" filter="url(#shadow)"/>
+
+  <!-- Subtle ambient inner glow ring -->
+  <circle cx="256" cy="256" r="170" fill="none" stroke="#FFFFFF" stroke-opacity="0.04" stroke-width="1.5"/>
+
+  <!-- Group for the V-Connection Emblem -->
+  <g filter="url(#symbolGlow)">
+    <!-- Left Connecting Stream (V-Left Wing) -->
+    <path d="M 140,144 
+             C 140,144 190,260 256,368
+             C 240,368 180,240 120,154
+             A 20,20 0 0 1 140,144 Z" 
+          fill="url(#leftWingGrad)"/>
+
+    <!-- Right Connecting Stream (V-Right Wing) -->
+    <path d="M 372,144 
+             C 372,144 322,260 256,368
+             C 272,368 332,240 392,154
+             A 20,20 0 0 0 372,144 Z" 
+          fill="url(#rightWingGrad)"/>
+
+    <!-- Left Connection Anchor Node -->
+    <circle cx="132" cy="148" r="28" fill="#FF5252"/>
+    <circle cx="132" cy="148" r="14" fill="#FFFFFF"/>
+
+    <!-- Right Connection Anchor Node -->
+    <circle cx="380" cy="148" r="28" fill="#00D2D3"/>
+    <circle cx="380" cy="148" r="14" fill="#FFFFFF"/>
+
+    <!-- Central Community Bridge Arc -->
+    <path d="M 180,210 Q 256,170 332,210" fill="none" stroke="#FFFFFF" stroke-opacity="0.85" stroke-width="14" stroke-linecap="round"/>
+
+    <!-- Apex Focal Community Node -->
+    <circle cx="256" cy="368" r="34" fill="url(#coreNodeGrad)" stroke="#FFFFFF" stroke-width="6"/>
+    <circle cx="256" cy="368" r="16" fill="#FFFFFF"/>
+
+    <!-- Dynamic Sparkle Accent -->
+    <path d="M 256,128 Q 256,152 240,152 Q 256,152 256,176 Q 256,152 272,152 Q 256,152 256,128 Z" fill="#FFAA5A"/>
+  </g>
+</svg>

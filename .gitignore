@@ -37,12 +37,11 @@ venv.bak/
 .idea/
 *.swp
 *.swo
-*~
-
-# Operating System
-.DS_Store
-Thumbs.db
-desktop.ini
-
 # Logs
 *.log
+
+# Node.js & Desktop Builds
+node_modules/
+dist/
+*.exe
+

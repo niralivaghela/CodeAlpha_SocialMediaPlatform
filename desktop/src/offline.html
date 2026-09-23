@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unable to Connect — VIBELY</title>
+  <link rel="stylesheet" href="offline.css">
+</head>
+<body>
+  <!-- Custom Drag Region for Desktop Titlebar in Offline State -->
+  <div class="offline-titlebar">
+    <div class="offline-titlebar-brand">
+      <img src="../assets/icons/icon-32.png" alt="Vibely" class="offline-titlebar-icon">
+      <span>VIBELY</span>
+    </div>
+    <div class="offline-window-controls">
+      <button id="btn-min" title="Minimize" class="win-btn">−</button>
+      <button id="btn-max" title="Maximize" class="win-btn">□</button>
+      <button id="btn-close" title="Close" class="win-btn win-close">✕</button>
+    </div>
+  </div>
+
+  <div class="offline-main">
+    <div class="offline-card">
+      <div class="offline-icon-wrap">
+        <div class="radar-pulse"></div>
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="signal-icon">
+          <line x1="1" y1="1" x2="23" y2="23"></line>
+          <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"></path>
+          <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"></path>
+          <path d="M10.71 5.05A16 16 0 0 1 22.58 9"></path>
+          <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"></path>
+          <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+          <line x1="12" y1="20" x2="12.01" y2="20"></line>
+        </svg>
+      </div>
+
+      <h1 class="offline-title">Unable to Connect to VIBELY</h1>
+      <p class="offline-desc">
+        We couldn't reach the VIBELY application service. The backend server might be starting up or currently unreachable.
+      </p>
+
+      <div class="server-pill">
+        <span class="pill-dot"></span>
+        <span>Target: <strong id="target-url">http://127.0.0.1:8000</strong></span>
+      </div>
+
+      <div class="troubleshoot-box">
+        <div class="troubleshoot-header">Quick Local Fix</div>
+        <p>If running locally in development, open your terminal and run:</p>
+        <code>python backend/manage.py runserver</code>
+      </div>
+
+      <div class="action-row">
+        <button id="retry-btn" class="btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M23 4v6h-6"></path>
+            <path d="M1 20v-6h6"></path>
+            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+          </svg>
+          <span id="retry-text">Retry Connection</span>
+        </button>
+      </div>
+
+      <div class="auto-retry-text" id="auto-retry-info">
+        Automatic retry in <span id="countdown-num">5</span>s...
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const targetUrlEl = document.getElementById('target-url');
+    const retryBtn = document.getElementById('retry-btn');
+    const retryText = document.getElementById('retry-text');
+    const countdownNum = document.getElementById('countdown-num');
+    const autoRetryInfo = document.getElementById('auto-retry-info');
+
+    // Fetch config target from window.vibelyDesktop if available
+    if (window.vibelyDesktop) {
+      if (window.vibelyDesktop.getBackendUrl) {
+        window.vibelyDesktop.getBackendUrl().then(url => {
+          if (url) targetUrlEl.textContent = url;
+        });
+      }
+      document.getElementById('btn-min')?.addEventListener('click', () => window.vibelyDesktop.minimize());
+      document.getElementById('btn-max')?.addEventListener('click', () => window.vibelyDesktop.maximize());
+      document.getElementById('btn-close')?.addEventListener('click', () => window.vibelyDesktop.close());
+    }
+
+    let countdown = 5;
+    let timer = null;
+
+    function startCountdown() {
+      countdown = 5;
+      countdownNum.textContent = countdown;
+      autoRetryInfo.style.display = 'block';
+      if (timer) clearInterval(timer);
+      timer = setInterval(() => {
+        countdown--;
+        countdownNum.textContent = countdown;
+        if (countdown <= 0) {
+          clearInterval(timer);
+          triggerRetry();
+        }
+      }, 1000);
+    }
+
+    function triggerRetry() {
+      if (timer) clearInterval(timer);
+      retryBtn.disabled = true;
+      retryText.textContent = 'Connecting...';
+      autoRetryInfo.style.display = 'none';
+
+      if (window.vibelyDesktop && window.vibelyDesktop.retryConnection) {
+        window.vibelyDesktop.retryConnection();
+      } else {
+        window.location.reload();
+      }
+
+      setTimeout(() => {
+        retryBtn.disabled = false;
+        retryText.textContent = 'Retry Connection';
+        startCountdown();
+      }, 3000);
+    }
+
+    retryBtn.addEventListener('click', triggerRetry);
+    startCountdown();
+  </script>
+</body>
+</html>

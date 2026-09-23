@@ -1,0 +1,62 @@
+{
+  "name": "vibely-desktop",
+  "productName": "VIBELY",
+  "version": "1.0.0",
+  "description": "Share. Connect. Discover. — Standalone Windows Desktop Social Application",
+  "author": "VIBELY",
+  "main": "electron.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "electron test_electron.js",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder --win portable"
+  },
+  "keywords": [
+    "vibely",
+    "social",
+    "desktop",
+    "electron",
+    "windows"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^34.2.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.vibely.social",
+    "productName": "VIBELY",
+    "copyright": "Copyright © 2026 VIBELY",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "electron.js",
+      "preload.js",
+      "assets/**/*",
+      "src/**/*"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "assets/icons/icon.ico",
+      "artifactName": "${productName}-Setup.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": "always",
+      "createStartMenuShortcut": true,
+      "shortcutName": "VIBELY",
+      "installerIcon": "assets/icons/icon.ico",
+      "uninstallerIcon": "assets/icons/icon.ico",
+      "uninstallDisplayName": "VIBELY - Social Media"
+    }
+  }
+}
